@@ -1,0 +1,3 @@
+include ':DefectClassification'
+
+project(':DefectClassification').projectDir = file('DefectClassification/app')
