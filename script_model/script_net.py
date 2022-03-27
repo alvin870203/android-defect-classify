@@ -1,4 +1,4 @@
-# Use torch=1.7.0 torchvision=0.8.0
+# Use torchvision <= 0.8.0
 
 import torch
 import torchvision
@@ -72,18 +72,20 @@ def test_export_torchvision_format():
         wrapped_model.eval()
         
         # optionally do a forward
-        print(wrapped_model([torch.rand(3, 4032, 1728)]))
+        print(wrapped_model([torch.rand(3, 4032, 1728)]))  # any W and H are acceptable
         
-        scripted_model = torch.jit.script(wrapped_model)
+        scripted_model = torch.jit.script(wrapped_model)  # cannot trace because some op in transforms and interpolate unsupported
         scripted_model.save("./DefectClassification/app/src/main/assets/net-0327_0135-wrap.pt")
         # optimized_scripted_model = optimize_for_mobile(scripted_model)
         # optimized_scripted_model.save("./DefectClassification/app/src/main/assets/net-0327_0135-wrap.pt")
 
 
 if __name__ == "__main__":
-    assert torch.__version__ == "1.7.0" and torchvision == "0.8.0"
     
-    # script_Net()
+    # torchvision > 0.8.0 contains un-scriptable operation aten::reflection_pad3d when CenterCrop()
+    assert torch.__version__ == "1.7.0" and torchvision.__version__ == "0.8.0"  # conda env mypy37_test
+    
+    script_Net()
     test_export_torchvision_format()
     
     # validate saved scripted model
