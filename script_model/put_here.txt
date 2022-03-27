@@ -1,0 +1,3 @@
+Put net-0327_0135-weight.pt here
+(optional) Put net-0327_0135-mobile.pt here
+           Or generate it by running script_Net() in LiteOnApp/script_model/script_net.py

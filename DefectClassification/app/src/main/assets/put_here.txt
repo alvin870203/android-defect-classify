@@ -1,0 +1,2 @@
+(optional) Put net-0327_0135-wrap.pt here
+           Or generate it by running test_export_torchvision_format() in LiteOnApp/script_model/script_net.py
